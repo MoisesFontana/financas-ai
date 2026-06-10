@@ -1,0 +1,25 @@
+@import 'tailwindcss';
+@import '@fontsource/inter/400.css';
+@import '@fontsource/inter/600.css';
+@import '@fontsource/inter/700.css';
+@import '@fontsource/inter/800.css';
+/* @import '@fontsource/oswald/400.css';
+@import '@fontsource/oswald/600.css';
+@import '@fontsource/oswald/700.css'; */
+@import './styles/theme.css';
+
+@layer base {
+  body {
+    @apply bg-background text-foreground;
+    margin: 0 auto;
+    max-width: 1200px;
+    height: 100%;
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease;
+  }
+}
+
+.lucide {
+  stroke-width: 1.5;
+}
