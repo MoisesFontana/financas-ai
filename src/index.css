@@ -5,6 +5,8 @@
 @import '@fontsource/inter/800.css';
 @import './styles/theme.css';
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @layer base {
   body {
     @apply bg-background text-foreground;
@@ -15,10 +17,6 @@
       background-color 0.3s ease,
       color 0.3s ease;
   }
-}
-
-p {
-  margin: 0;
 }
 
 .lucide {

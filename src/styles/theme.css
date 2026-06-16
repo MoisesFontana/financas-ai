@@ -45,5 +45,5 @@
   --color-red-500: #ef4444;
   --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
   --color-skeleton-base: var(--skeleton-base-color);
-  --color-skeleton-base: var(--skeleton-highlight-color);
+  --color-highlight-base: var(--skeleton-highlight-color);
 }

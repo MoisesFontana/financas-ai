@@ -33,8 +33,7 @@ function OrderedList({ items }: { items: string[] }) {
 const statusStyles = {
   viable: {
     label: 'Meta viável no prazo',
-    //className: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400',
-    className: 'bg-emerald-600 dark:bg-green-900/30 dark:text-green-400',
+    className: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400',
   },
   needs_adjustment: {
     label: 'Ajuste necessário',

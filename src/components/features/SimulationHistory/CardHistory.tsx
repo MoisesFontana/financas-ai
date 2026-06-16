@@ -10,6 +10,7 @@ interface CardHistoryProps {
   term: string;
   monthlySaving: string;
   onDelete?: () => void;
+  onViewDetails?: () => void;
 }
 
 export function CardHistory({
@@ -20,10 +21,11 @@ export function CardHistory({
   term,
   monthlySaving,
   onDelete,
+  onViewDetails,
 }: CardHistoryProps) {
   return (
     <article className="border-border bg-card rounded-2xl border p-4 shadow-[4px_4px_18px_0_rgba(0,0,0,0.12)]">
-      <div className="hidden p-2 lg:grid lg:grid-cols-[minmax(220px,_1fr)_repeat(3,minmax(150px,200px))_minmax(220px,1fr)] lg:items-center lg:gap-2">
+      <div className="hidden p-2 lg:grid lg:grid-cols-[minmax(220px,1fr)_repeat(3,minmax(150px,200px))_minmax(220px,1fr)] lg:items-center lg:gap-2">
         <div className="flex items-center gap-2">
           <div className="bg-primary/20 text-primary mr-3 flex h-10 w-10 items-center justify-center rounded-xl">
             <Icon size={26} />
@@ -34,19 +36,19 @@ export function CardHistory({
           </div>
         </div>
         <div>
-          <p className="text-muted-foreground text-xs font-semibold uppercase tracking-[0.1em]">
+          <p className="text-muted-foreground text-xs font-semibold uppercase tracking-widest">
             Custo da meta
           </p>
           <p className="text-foreground mt-2 text-sm font-semibold">{goalAmount}</p>
         </div>
         <div>
-          <p className="text-muted-foreground text-xs font-semibold uppercase tracking-[0.1em]">
+          <p className="text-muted-foreground text-xs font-semibold uppercase tracking-widest">
             Prazo
           </p>
           <p className="text-foreground mt-2 text-sm font-semibold">{term}</p>
         </div>
         <div>
-          <p className="text-muted-foreground text-xs font-semibold uppercase tracking-[0.1em]">
+          <p className="text-muted-foreground text-xs font-semibold uppercase tracking-widest">
             Economia mensal
           </p>
           <p className="text-foreground mt-2 text-sm font-semibold">{monthlySaving}</p>
@@ -55,7 +57,7 @@ export function CardHistory({
           <Divider orientation="vertical" />
           <button
             type="button"
-            className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border-0 bg-white text-red-500 transition hover:cursor-pointer hover:bg-red-100"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border-0 text-red-500 transition hover:cursor-pointer hover:bg-red-100"
             aria-label="Excluir simulação"
             onClick={onDelete}
           >
@@ -64,6 +66,7 @@ export function CardHistory({
           <button
             type="button"
             className="border-border bg-secondary-button text-foreground/70 hover:bg-secondary-button/120 rounded-4xl flex flex-row items-center whitespace-nowrap border px-4 py-2 text-xs transition hover:cursor-pointer"
+            onClick={onViewDetails}
           >
             <SquareArrowOutUpRight size={16} />
             <span className="ml-2">Ver detalhes</span>
@@ -81,19 +84,19 @@ export function CardHistory({
         </div>
         <div className="bg-secondary-button/5 space-y-4 border-0">
           <div className="pb-2">
-            <p className="text-muted-foreground text-xs font-semibold uppercase tracking-[0.1em]">
+            <p className="text-muted-foreground text-xs font-semibold uppercase tracking-widest">
               Custo da meta
             </p>
             <p className="text-foreground mt-2 text-sm font-semibold">{goalAmount}</p>
           </div>
           <div className="pb-2">
-            <p className="text-muted-foreground text-xs font-semibold uppercase tracking-[0.1em]">
+            <p className="text-muted-foreground text-xs font-semibold uppercase tracking-widest">
               Prazo
             </p>
             <p className="text-foreground mt-2 text-sm font-semibold">{term}</p>
           </div>
           <div className="pb-2">
-            <p className="text-muted-foreground text-xs font-semibold uppercase tracking-[0.1em]">
+            <p className="text-muted-foreground text-xs font-semibold uppercase tracking-widest">
               Economia mensal
             </p>
             <p className="text-foreground mt-2 text-sm font-semibold">{monthlySaving}</p>
@@ -116,6 +119,7 @@ export function CardHistory({
             <button
               type="button"
               className="text-foreground/60 hover:bg-secondary-button/20 inline-flex items-center gap-2 whitespace-nowrap px-4 py-3 text-xs font-semibold "
+              onClick={onViewDetails}
             >
               <SquareArrowOutUpRight size={14} />
               Ver detalhes

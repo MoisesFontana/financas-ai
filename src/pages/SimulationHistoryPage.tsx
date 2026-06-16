@@ -5,6 +5,7 @@ import { useSimulationStorage } from '@/hooks/useSimulationStorage';
 import { calcMonthlySavingsNeeded } from '@/utils/simulation';
 import { Goal } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function formatSimulationDate(simulation: SimulationRecord) {
   if ('createdAt' in simulation && simulation.createdAt) {
@@ -19,9 +20,19 @@ export function SimulationHistoryPage() {
   const [simulations, setSimulations] = useState<SimulationRecord[]>([]);
 
   const handleDelete = (id: string) => {
+    const shouldDelete = window.confirm(
+      'Tem certeza de que deseja excluir esta simulação? Esta ação não pode ser desfeita.'
+    );
+
+    if (!shouldDelete) {
+      return;
+    }
+
     deleteSimulation(id);
     setSimulations((prev) => prev.filter((s) => s.id !== id));
   };
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     setSimulations(getAllFormData());
@@ -49,10 +60,11 @@ export function SimulationHistoryPage() {
                 maximumFractionDigits: 2,
               })}`}
               onDelete={() => handleDelete(simulation.id)}
+              onViewDetails={() => navigate(`/resultado/${simulation.id}`)}
             />
           ))
         ) : (
-          <p className="border-border bg-card text-muted-foreground rounded-[32px] border p-6 text-center text-sm">
+          <p className="border-border bg-card text-muted-foreground rounded-4xl border p-6 text-center text-sm">
             Nenhuma simulação encontrada no histórico.
           </p>
         )}

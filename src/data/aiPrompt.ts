@@ -58,3 +58,31 @@ Regras:
   - "needs_adjustment": saldo negativo de até 20% do valor da economia mensal necessária
   - "unfeasible": saldo negativo superior a 20% do valor da economia mensal necessária`;
 }
+
+export function buildChatPrompt(
+  simulation: SimulationRecord,
+  question: string,
+  conversation: { role: 'user' | 'assistant'; content: string }[]
+) {
+  const context = conversation
+    .map((message) => `${message.role === 'user' ? 'Usuário' : 'Assistente'}: ${message.content}`)
+    .join('\n');
+
+  return `Você é um assistente financeiro que responde perguntas sobre a simulação abaixo. Utilize linguagem clara, objetiva e em português brasileiro. Responda apenas à pergunta do usuário e não inclua sugestões fora do contexto.
+
+Dados da simulação:
+- Renda mensal bruta: ${simulation.income}
+- Custos fixos essenciais: ${simulation.expenses}
+- Dívidas e parcelas mensais: ${simulation.debts}
+- Meta: ${simulation.goalName}
+- Custo da meta: ${simulation.goalAmount}
+- Prazo desejado: ${simulation.goalDeadline} meses
+
+Histórico da conversa:
+${context}
+
+Pergunta do usuário:
+${question}
+
+Responda de forma clara e direta.`;
+}

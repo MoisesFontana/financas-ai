@@ -1,9 +1,10 @@
 import { type SimulationFormData, type SimulationRecord } from '@/data/simulation';
+import { useCallback, useMemo } from 'react';
 
 const LOCAL_STORAGE_KEY = 'simulation-data';
 
 export const useSimulationStorage = () => {
-  const saveFormData = (formData: SimulationFormData) => {
+  const saveFormData = useCallback((formData: SimulationFormData) => {
     const id = crypto.randomUUID();
     const record: SimulationRecord = { ...formData, id };
 
@@ -13,9 +14,9 @@ export const useSimulationStorage = () => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify([...savedData, record]));
 
     return id;
-  };
+  }, []);
 
-  const getFormData = (id: string) => {
+  const getFormData = useCallback((id: string) => {
     const storage = localStorage.getItem(LOCAL_STORAGE_KEY);
 
     if (!storage) {
@@ -24,29 +25,32 @@ export const useSimulationStorage = () => {
 
     const savedData = JSON.parse(storage) as SimulationRecord[];
     return savedData.find((record) => record.id === id) || null;
-  };
+  }, []);
 
-  const updateSimulation = (id: string, data: SimulationRecord) => {
+  const updateSimulation = useCallback((id: string, data: SimulationRecord) => {
     const storage = localStorage.getItem(LOCAL_STORAGE_KEY);
     const savedData = storage ? (JSON.parse(storage) as SimulationRecord[]) : [];
 
     const updated = savedData.map((record) => (record.id === id ? { ...data } : record));
 
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updated));
-  };
+  }, []);
 
-  const deleteSimulation = (id: string) => {
+  const deleteSimulation = useCallback((id: string) => {
     const storage = localStorage.getItem(LOCAL_STORAGE_KEY);
     const savedData = storage ? (JSON.parse(storage) as SimulationRecord[]) : [];
 
     const filtered = savedData.filter((record) => record.id !== id);
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(filtered));
-  };
+  }, []);
 
-  const getAllFormData = () => {
+  const getAllFormData = useCallback(() => {
     const storage = localStorage.getItem(LOCAL_STORAGE_KEY);
     return storage ? (JSON.parse(storage) as SimulationRecord[]) : [];
-  };
+  }, []);
 
-  return { saveFormData, getFormData, getAllFormData, updateSimulation, deleteSimulation };
+  return useMemo(
+    () => ({ saveFormData, getFormData, getAllFormData, updateSimulation, deleteSimulation }),
+    [saveFormData, getFormData, getAllFormData, updateSimulation, deleteSimulation]
+  );
 };
