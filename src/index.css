@@ -3,9 +3,6 @@
 @import '@fontsource/inter/600.css';
 @import '@fontsource/inter/700.css';
 @import '@fontsource/inter/800.css';
-/* @import '@fontsource/oswald/400.css';
-@import '@fontsource/oswald/600.css';
-@import '@fontsource/oswald/700.css'; */
 @import './styles/theme.css';
 
 @layer base {
@@ -18,6 +15,10 @@
       background-color 0.3s ease,
       color 0.3s ease;
   }
+}
+
+p {
+  margin: 0;
 }
 
 .lucide {
